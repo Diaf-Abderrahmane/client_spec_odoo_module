@@ -1,0 +1,5 @@
+<odoo>
+        <record id="group_manager_1" model="res.groups">
+            <field name="name">ClientSpech / Manager</field>
+        </record>
+</odoo>

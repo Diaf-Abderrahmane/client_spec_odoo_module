@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+<!-- Add Media Comment field to existing view -->
+<record model="ir.ui.view" id="partner_client_form_view">
+ <field name="name">view.client</field>
+ <field name="model">res.partner</field>
+ <field name="inherit_id" ref="base.view_partner_form"/>
+ <field name="arch" type="xml">
+<notebook position="inside">
+ <page string="Media_comments">
+ <group>
+ <field name="media_comments"/>
+</group>
+</page>
+ </notebook>
+</field>
+ </record>
+
+<record model="ir.actions.act_window" id="contact_list_action">
+ <field name="name">Clients</field>
+ <field name="res_model">res.partner</field>
+ <field name="view_mode">tree,form</field>
+</record>
+
+<!-- top level menu: no parent -->
+        <menuitem id="main_clientspec_menu" name="Client Spec"/>
+        <!-- A first level in the left side menu is needed
+             before using action= attribute -->
+        <menuitem id="clientspec_menu" name="Client Spec"
+                  parent="main_clientspec_menu"/>
+        <!-- the following menuitem should appear *after*
+             its parent clientspec_menu and *after* its
+             action client_list_action -->
+        <menuitem id="client_menu" name="Clients"
+        parent="clientspec_menu"
+        action="contact_list_action"/>
+
+
+        <!-- assurance form view -->
+        <record model="ir.ui.view" id="assurance_form_view">
+            <field name="name">assurance.form</field>
+            <field name="model">clientspech.assurance</field>
+            <field name="arch" type="xml">
+                <form string="assurance Form">
+                    <sheet>
+                        <group>
+                            <group string="General">
+                                <field name="client_id"/>
+                                <field name="label"/>
+                            </group>
+                            <group string="Assurance">
+                                <field name="dateSouscription"/>
+                                <field name="piece"/>                              
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- assurance tree/list view -->
+        <record model="ir.ui.view" id="assurance_tree_view">
+            <field name="name">assurance.tree</field>
+            <field name="model">clientspech.assurance</field>
+            <field name="arch" type="xml">
+                <tree string="assurance Tree">
+                    <field name="label"/>
+                    <field name="client_id"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="assurance_search_view">
+            <field name="name">assurance.search</field>
+            <field name="model">clientspech.assurance</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="label"/>
+                    <field name="dateSouscription"/>                
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="assurance_list_action">
+            <field name="name">assurances</field>
+            <field name="res_model">clientspech.assurance</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="assurance_menu" name="assurances"
+                  parent="clientspec_menu"
+                  action="assurance_list_action"/>
+
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--  existing view Sale Order-->
+
+<record model="ir.actions.act_window" id="commande_list_action">
+ <field name="name">Commandes</field>
+ <field name="res_model">sale.order</field>
+ <field name="view_mode">tree,form,calendar</field>
+</record>
+
+<menuitem id="commandes_menu" name="commandes"
+                  parent="clientspec_menu"
+                  action="commande_list_action"/>
+
+</odoo>
